@@ -1,0 +1,26 @@
+import React from "react";
+import {useDispatch} from "react-redux";
+import {Avatar, Popover} from "antd";
+import {userSignOut} from "appRedux/actions/Auth";
+
+const UserInfo = () => {
+
+  const dispatch = useDispatch();
+
+  const userMenuOptions = (
+    <ul className="gx-user-popover">
+      <li>My Account</li>
+      <li>Connections</li>
+      <li onClick={() => dispatch(userSignOut())}>Logout
+      </li>
+    </ul>
+  );
+
+  return (
+    <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight" content={userMenuOptions} trigger="click">
+      <Avatar src={"https://cdn.iconscout.com/icon/free/png-512/account-profile-avatar-man-circle-round-user-30452.png"} className="gx-avatar gx-pointer" alt=""/>
+    </Popover>
+  );
+};
+
+export default UserInfo;
