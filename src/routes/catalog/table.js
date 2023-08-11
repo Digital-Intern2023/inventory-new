@@ -11,7 +11,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 const TableCatalog = (id) => {
   const [data, setData] = useState();
   const [dataModal, setDataModal] = useState([]);
-
+const test = {}
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
