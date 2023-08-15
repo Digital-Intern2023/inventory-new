@@ -58,7 +58,7 @@ const OrderAddText = () => {
   }
   const getMat = () => {
     axios
-      .get(API_URL + "/api/Stock/GetStock/" + authUser.user.id)
+      .get(API_URL + "/api/Stock/GetStockDistinct/" + authUser.user.id)
       .then((res) => {
         console.log("jaa", res.data.data);
         setMat(res.data.data);
@@ -85,7 +85,7 @@ const OrderAddText = () => {
     console.log(event);
     if (name == "code") {
       // message.warning("กรุณาเลือก Store ที่ต้องการเบิก");
-      setCondition({ ...condition, ["code"]: event.target.value });
+      setCondition({ ...condition, ["code"]: event });
     }
     if (name == "storeId") {
       setCondition({ ...condition, ["storeId"]: event });
