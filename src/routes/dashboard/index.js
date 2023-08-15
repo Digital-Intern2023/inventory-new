@@ -190,7 +190,7 @@ const Dashboard = () => {
         title="กรองข้อมูลตามระยะเวลา"
       ></Widget>
       <Row>
-        <Col xl={8} lg={12} md={12} sm={12} xs={24}>
+        <Col xl={8} lg={12} md={24} sm={24} xs={24}>
           <ChartCard
             prize={overview.data1}
             title="รายการนำเข้า"
@@ -199,7 +199,7 @@ const Dashboard = () => {
             desc="Bitcoin Price"
           />
         </Col>
-        <Col xl={8} lg={12} md={12} sm={12} xs={24}>
+        <Col xl={8} lg={12} md={24} sm={24} xs={24}>
           <ChartCard
             prize={overview.data2}
             title="รายการเบิกออก"
@@ -207,7 +207,7 @@ const Dashboard = () => {
             desc="Etherium Price"
           />
         </Col>
-        <Col xl={8} lg={12} md={12} sm={12} xs={24}>
+        <Col xl={8} lg={12} md={24} sm={24} xs={24}>
           <ChartCard
             prize={overview.data3}
             title="รวมรายการ"

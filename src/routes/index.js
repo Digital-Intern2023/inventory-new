@@ -17,6 +17,11 @@ const App = ({ match }) => (
         component={asyncComponent(() => import("../containers/SignIn"))}
       />
       <Route
+        path={`${match.url}Search/:searchText`}
+        exact
+        component={asyncComponent(() => import("./search/index"))}
+      />
+      <Route
         path={`${match.url}category`}
         exact
         component={asyncComponent(() => import("./category/index"))}
