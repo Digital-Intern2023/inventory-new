@@ -87,7 +87,9 @@ const StockAddotText = () => {
     getCategory();
     getSubCategory();
   }, []);
-
+  const onSearch = (value) => {
+    console.log("search:", value);
+  };
   const inputValue = (name) => (event) => {
     axios
       .get(
@@ -144,7 +146,12 @@ const StockAddotText = () => {
           },
         ]}
       >
-        <Select placeholder="โปรดเลือกหมวดหมู่อะไหล่">
+        <Select
+          placeholder="โปรดเลือกหมวดหมู่อะไหล่"
+          showSearch
+          optionFilterProp="children"
+          onSearch={onSearch}
+        >
           {category.sort().map((item) => (
             <Select.Option value={item.id}>{item.name}</Select.Option>
           ))}
@@ -215,7 +222,12 @@ const StockAddotText = () => {
           },
         ]}
       >
-        <Select placeholder="กรุณาเลือก store">
+        <Select
+          placeholder="กรุณาเลือก store"
+          showSearch
+          optionFilterProp="children"
+          onSearch={onSearch}
+        >
           {store.sort().map((item) => (
             <Select.Option key={item.id} value={item.id}>
               {item.name}
