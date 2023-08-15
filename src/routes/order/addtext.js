@@ -49,12 +49,21 @@ const OrderAddText = () => {
     code: "",
     storeId: "",
   });
+  const [mat, setMat] = useState();
   function getPlant() {
     axios.get(API_URL + "/api/Structure/GetPlant").then((res) => {
       console.log(res.data.data);
       setPlant(res.data.data);
     });
   }
+  const getMat = () => {
+    axios
+      .get(API_URL + "/api/Stock/GetStock/" + authUser.user.id)
+      .then((res) => {
+        console.log("jaa", res.data.data);
+        setMat(res.data.data);
+      });
+  };
   function getStore() {
     axios
       .get(API_URL + "/api/Store/GetStoreByUser/" + authUser.user.id)
@@ -67,6 +76,7 @@ const OrderAddText = () => {
     console.log("search:", value);
   };
   useEffect(() => {
+    getMat();
     getPlant();
     getStore();
   }, []);
@@ -139,7 +149,21 @@ const OrderAddText = () => {
             },
           ]}
         >
-          <Input value={code} onChange={inputValue("code")} />
+          <Select
+            placeholder="เลือกอะไหล่"
+            showSearch
+            optionFilterProp="children"
+            onSearch={onSearch}
+            onChange={inputValue("code")}
+          >
+            {mat
+              ? mat.sort().map((item) => (
+                  <Select.Option key={item.id} value={item.code}>
+                    {item.code + " " + item.name}
+                  </Select.Option>
+                ))
+              : null}
+          </Select>
         </Form.Item>
         <Form.Item
           name="storeId"
