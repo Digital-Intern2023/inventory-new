@@ -63,6 +63,9 @@ const OrderAddText = () => {
         setStore(res.data.data);
       });
   }
+  const onSearch = (value) => {
+    console.log("search:", value);
+  };
   useEffect(() => {
     getPlant();
     getStore();
@@ -150,6 +153,9 @@ const OrderAddText = () => {
           <Select
             placeholder="กรุณาเลือก store"
             onChange={inputValue("storeId")}
+            showSearch
+            optionFilterProp="children"
+            onSearch={onSearch}
           >
             {store.sort().map((item) => (
               <Select.Option key={item.id} value={item.id}>
@@ -179,7 +185,12 @@ const OrderAddText = () => {
             },
           ]}
         >
-          <Select placeholder="กรุณาเลือกโรงงาน">
+          <Select
+            placeholder="กรุณาเลือกโรงงาน"
+            showSearch
+            optionFilterProp="children"
+            onSearch={onSearch}
+          >
             {plant.sort().map((item) => (
               <Select.Option key="B" value={item.code}>
                 {item.code + " " + item.name}

@@ -106,6 +106,9 @@ const StockAddot = () => {
     setIsStart(false);
     setIsModalOpen(false);
   };
+  const onSearch = (value) => {
+    console.log("search:", value);
+  };
   const scanSuccess = (params) => {
     form.setFieldsValue({ code: params });
     console.log("bar", params);
@@ -193,7 +196,12 @@ const StockAddot = () => {
           },
         ]}
       >
-        <Select placeholder="โปรดเลือกหมวดหมู่อะไหล่">
+        <Select
+          placeholder="โปรดเลือกหมวดหมู่อะไหล่"
+          showSearch
+          optionFilterProp="children"
+          onSearch={onSearch}
+        >
           {category.sort().map((item) => (
             <Select.Option key={item.id} value={item.id}>
               {item.name}
@@ -265,7 +273,12 @@ const StockAddot = () => {
           },
         ]}
       >
-        <Select placeholder="กรุณาเลือก store">
+        <Select
+          placeholder="กรุณาเลือก store"
+          showSearch
+          optionFilterProp="children"
+          onSearch={onSearch}
+        >
           {store.sort().map((item) => (
             <Select.Option key={item.id} value={item.id}>
               {item.name}
