@@ -91,6 +91,10 @@ const OrderAdd = () => {
     form.setFieldsValue({ code: params });
     setCondition({ code: params });
   };
+
+  const onSearch = (value) => {
+    console.log("search:", value);
+  };
   const inputValue = (name) => (event) => {
     if (condition.code != "") {
       axios
@@ -189,7 +193,13 @@ const OrderAdd = () => {
           },
         ]}
       >
-        <Select placeholder="กรุณาเลือก store" onChange={inputValue("storeId")}>
+        <Select
+          placeholder="กรุณาเลือก store"
+          onChange={inputValue("storeId")}
+          showSearch
+          optionFilterProp="children"
+          onSearch={onSearch}
+        >
           {store.sort().map((item) => (
             <Select.Option key={item.id} value={item.id}>
               {item.name}
@@ -218,7 +228,12 @@ const OrderAdd = () => {
           },
         ]}
       >
-        <Select placeholder="กรุณาเลือกโรงงาน">
+        <Select
+          placeholder="กรุณาเลือกโรงงาน"
+          showSearch
+          optionFilterProp="children"
+          onSearch={onSearch}
+        >
           {plantsta === 1
             ? plant.sort().map((item) => (
                 <Select.Option key="a" value={item.code}>
