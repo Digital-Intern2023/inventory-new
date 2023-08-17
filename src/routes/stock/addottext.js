@@ -34,7 +34,8 @@ const StockAddotText = () => {
         console.log(res);
         setLoadings(false);
 
-        window.location.reload();
+        message.success(`เพิ่มข้อมูลสำเร็จ`);
+        // window.location.reload();
       });
     } else {
       setLoadings(false);

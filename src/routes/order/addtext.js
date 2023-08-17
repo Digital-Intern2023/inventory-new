@@ -23,7 +23,8 @@ const OrderAddText = () => {
         console.log(res);
         if (res.data.data != null) {
           setLoadings(false);
-          window.location.reload();
+        message.success(`เพิ่มข้อมูลสำเร็จ`);
+        // window.location.reload();
         } else {
           setLoadings(false);
           message.error("จำนวนอะไหล่มีไม่พอให้ใช้บริการ");

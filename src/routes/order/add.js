@@ -23,9 +23,10 @@ const OrderAdd = () => {
       axios.post(API_URL + "/api/Order/Create", context).then((res) => {
         console.log(res);
         if (res.data.data != null) {
-          window.location.reload();
+          // window.location.reload();
           setLoadings(false);
-        } else {
+          message.success(`เพิ่มข้อมูลสำเร็จ`);
+      } else {
           message.error("จำนวนอะไหล่มีไม่พอให้ใช้บริการ");
           setLoadings(false);
         }

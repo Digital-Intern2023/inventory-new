@@ -84,6 +84,7 @@ const UserManage = () => {
   };
 
   const handleCancel = () => {
+    setDataTable();
     setIsModalOpen(false);
   };
 

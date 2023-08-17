@@ -28,7 +28,8 @@ const MaterialAddText = () => {
       };
       axios.post(API_URL + "/api/Material/Create", context).then((res) => {
         console.log(res);
-        window.location.reload();
+        message.success(`เพิ่มข้อมูลสำเร็จ`);
+        // window.location.reload();
       });
     } else {
       message.error("ข้อมูลซ้ำกับในระบบ");

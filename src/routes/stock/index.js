@@ -193,6 +193,7 @@ const Stock = () => {
     }, 3000);
   };
   const handleCancel = () => {
+    getDataTable();
     setOpen(false);
   };
 
@@ -206,6 +207,7 @@ const Stock = () => {
     }, 3000);
   };
   const handleCancel1 = () => {
+    getDataTable();
     setOpen1(false);
   };
 
@@ -219,6 +221,7 @@ const Stock = () => {
     }, 3000);
   };
   const handleCancel2 = () => {
+    getDataTable();
     setOpen2(false);
   };
   useEffect(() => {

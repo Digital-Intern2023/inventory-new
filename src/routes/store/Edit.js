@@ -16,7 +16,7 @@ const StoreEdit = (data) => {
     };
     axios.post(API_URL + "/api/Store/Update", store).then((res) => {
       console.log(res);
-      window.location.reload();
+      // window.location.reload();
       message.success(`แก้ไขข้อมูล Store ${store.name} สำเร็จ`);
     });
   };

@@ -1,4 +1,4 @@
-import { Button, Divider, Form, Input, Radio, Row, Table } from "antd";
+import { Button, Divider, Form, Input, Radio, Row, Table, message } from "antd";
 import axios from "axios";
 import { set } from "lodash";
 import { func } from "prop-types";
@@ -51,7 +51,8 @@ const ManageCatalog = (data) => {
       .post(API_URL + "/api/GroupMaterial/Create/" + data["data"].id, rowData)
       .then((res) => {
         console.log(res);
-        window.location.reload();
+        message.success(`เพิ่มข้อมูลสำเร็จ`);
+        // window.location.reload();
       });
   };
   useEffect(() => {

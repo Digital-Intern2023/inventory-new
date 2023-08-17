@@ -1,4 +1,4 @@
-import { Button, Form, Input, Row } from "antd";
+import { Button, Form, Input, Row, message } from "antd";
 import { API_URL, authUser } from "../../constanst";
 import axios from "axios";
 
@@ -13,7 +13,8 @@ const MachineEdit = (data) => {
     };
     axios.post(API_URL + "/api/Machine/Update", category).then((res) => {
       console.log(res);
-      window.location.reload();
+      message.success(`แก้ไขข้อมุล ${values.name} สำเร็จแล้ว`);
+      // window.location.reload();
     });
   };
 

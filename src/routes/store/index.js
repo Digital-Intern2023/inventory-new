@@ -210,6 +210,7 @@ const Store = (status) => {
   };
 
   const handleCancel = () => {
+    getDivision();
     setIsModalOpen(false);
   };
   const showModal1 = () => {
@@ -267,7 +268,7 @@ const Store = (status) => {
   }
   
   useEffect(()=>{
-    getDivision()
+    getDivision();
   },[])
 
 

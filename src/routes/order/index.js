@@ -57,6 +57,7 @@ const Order = () => {
     }, 3000);
   };
   const handleCancel = () => {
+    getDataTable();
     setOpen(false);
   };
 
@@ -72,6 +73,7 @@ const Order = () => {
     }, 3000);
   };
   const handleCancel1 = () => {
+    getDataTable();
     setOpen1(false);
   };
 

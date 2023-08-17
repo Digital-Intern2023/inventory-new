@@ -34,6 +34,7 @@ const Catalog = () => {
   };
 
   const handleCancel = () => {
+    getDataTable();
     setIsModalOpen(false);
   };
 
@@ -46,6 +47,7 @@ const Catalog = () => {
   };
 
   const handleCancel1 = () => {
+    getDataTable();
     setIsModalOpen1(false);
   };
 

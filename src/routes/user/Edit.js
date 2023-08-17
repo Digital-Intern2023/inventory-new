@@ -17,7 +17,9 @@ const UserManageEdit = (data) => {
 
     axios.post(API_URL+`/api/User/Update`,context).then((res)=>{
       console.log(res.data.message);
-      window.location.reload();
+
+      message.success("อัปเดตข้อมูลสำเร็จ")
+      // window.location.reload();
     })
   };
   function GetUser() {
