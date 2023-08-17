@@ -115,7 +115,7 @@ const StockAddot = () => {
 
     axios
       .get(
-        `https://localhost:7106/api/Material/GetSingleMaterialbyCode/${params}`
+        API_URL + `/api/Material/GetSingleMaterialbyCode/${params}`
       )
       .then((res) => {
         if (res.data.data === null) {

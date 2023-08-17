@@ -33,7 +33,6 @@ const StockAddText = () => {
       axios.post(API_URL + "/api/Stock/Create", context).then((res) => {
         console.log(res);
         setLoadings(false);
-
         window.location.reload();
       });
     } else {
@@ -76,7 +75,7 @@ const StockAddText = () => {
     });
   };
   const getMat = () => {
-    axios.get(`https://localhost:7106/api/Material/GetMaterial`).then((res) => {
+    axios.get(API_URL + `/api/Material/GetMaterial`).then((res) => {
       console.log("jaa", res.data.data);
       setMat(res.data.data);
     });
@@ -101,7 +100,7 @@ const StockAddText = () => {
   const inputValue = (name) => (event) => {
     axios
       .get(
-        `https://localhost:7106/api/Material/GetSingleMaterialbyCode/${event}`
+        API_URL + `/api/Material/GetSingleMaterialbyCode/${event}`
       )
       .then((res) => {
         if (res.data.data === null) {

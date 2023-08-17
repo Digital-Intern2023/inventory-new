@@ -65,29 +65,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 ภาพรวมระบบ
               </NavLink>
             </Menu.Item>
-            <SubMenu
-              key="dashboard"
-              popupClassName={getNavStyleSubMenuClass(navStyle)}
-              title={
-                <span>
-                  <i className="icon icon-widgets" />
-                  <span>จัดการข้อมูลอะไหล่</span>
-                </span>
-              }
-            >
-              <Menu.Item key="category">
-                <NavLink to="/category" activeStyle={{ color: "orange" }}>
-                  <i className="icon icon-crypto" />
-                  จัดการหมวดหมู่อะไหล่
-                </NavLink>
-              </Menu.Item>
-              <Menu.Item key="material">
-                <NavLink to="/material" activeStyle={{ color: "orange" }}>
-                  <i className="icon icon-crm" />
-                  จัดการข้อมูลอะไหล่กลาง
-                </NavLink>
-              </Menu.Item>
-            </SubMenu>
+
+            <Menu.Item key="material">
+              <NavLink to="/material" activeStyle={{ color: "orange" }}>
+                <i className="icon icon-widgets" />
+                จัดการข้อมูลอะไหล่กลาง
+              </NavLink>
+            </Menu.Item>
 
             <Menu.Item key="Stock">
               <NavLink to="/stock" activeStyle={{ color: "orange" }}>

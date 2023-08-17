@@ -76,7 +76,7 @@ const StockAddotText = () => {
     });
   };
   const getMat = () => {
-    axios.get(`https://localhost:7106/api/Material/GetMaterial`).then((res) => {
+    axios.get(API_URL + `/api/Material/GetMaterial`).then((res) => {
       console.log("jaa", res.data.data);
       setMat(res.data.data);
     });
@@ -101,7 +101,7 @@ const StockAddotText = () => {
   const inputValue = (name) => (event) => {
     axios
       .get(
-        `https://localhost:7106/api/Material/GetSingleMaterialbyCode/${event}`
+        API_URL + `/api/Material/GetSingleMaterialbyCode/${event}`
       )
       .then((res) => {
         if (res.data.data === null) {

@@ -78,7 +78,7 @@ const MaterialAddText = () => {
   const inputValue = (name) => (event) => {
     axios
       .get(
-        `https://localhost:7106/api/Material/GetSingleMaterialbyCode/${event.target.value}`
+        API_URL + `/api/Material/GetSingleMaterialbyCode/${event.target.value}`
       )
       .then((res) => {
         if (res.data.data === null) {

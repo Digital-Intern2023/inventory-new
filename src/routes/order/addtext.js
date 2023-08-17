@@ -94,7 +94,7 @@ const OrderAddText = () => {
     if (condition.code != "") {
       axios
         .get(
-          `https://localhost:7106/api/Stock/GetSinglebyCodeAndStoreId/${
+          API_URL + `/api/Stock/GetSinglebyCodeAndStoreId/${
             condition.code
           }/${event.toString()}/${authUser.user.id}`
         )
