@@ -45,7 +45,7 @@ const Topbar = () => {
   };
   function removeLocalstorage() {
     localStorage.removeItem("user");
-    window.location.reload("/");
+    window.location.assign("/");
   }
   return (
     <Header>

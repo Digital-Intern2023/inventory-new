@@ -91,6 +91,7 @@ const MainApp = () => {
       <Layout>
         {getNavStyles(navStyle)}
         <Content className={`gx-layout-content ${getContainerClass(navStyle)} `}>
+          {/* {JSON.stringify(match)} */}
           <App match={match}/>
           <Footer>
             <div className="gx-layout-footer-content">

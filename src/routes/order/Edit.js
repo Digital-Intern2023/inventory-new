@@ -1,4 +1,4 @@
-import { Button, Form, Input, Row, Select } from "antd";
+import { Button, Form, Input, Row, Select, message } from "antd";
 import axios from "axios";
 import { API_URL, authUser } from "../../constanst";
 import { useEffect, useState } from "react";
@@ -28,7 +28,8 @@ const OrderEdit = (data) => {
     };
     axios.post(API_URL + "/api/Stock/Update", context).then((res) => {
       console.log(res);
-      window.location.reload();
+      message.success(`อัปเดตข้อมูลสำเร็จ`);
+      // window.location.reload();
     });
   };
   // set value in modal

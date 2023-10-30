@@ -35,8 +35,9 @@ const StockAdd = () => {
       axios.post(API_URL + "/api/Stock/Create", context).then((res) => {
         console.log(res);
         setLoadings(false);
+        message.success(`เพิ่มข้อมูลสำเร็จ`);
 
-        window.location.reload();
+        // window.location.reload();
       });
     } else {
       setLoadings(false);
@@ -114,7 +115,7 @@ const StockAdd = () => {
 
     axios
       .get(
-        `https://localhost:7106/api/Material/GetSingleMaterialbyCode/${params}`
+        API_URL + `/api/Material/GetSingleMaterialbyCode/${params}`
       )
       .then((res) => {
         if (res.data.data === null) {

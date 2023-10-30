@@ -21,7 +21,7 @@ const StockAddText = () => {
         unit: values.unit,
         storeId: values.storeCode.toString(),
         refCode: values.refCode,
-        categoryId: values.category,
+        categoryId: null,
         updateBy: null,
         updateDate: null,
         type: values.type,
@@ -33,8 +33,8 @@ const StockAddText = () => {
       axios.post(API_URL + "/api/Stock/Create", context).then((res) => {
         console.log(res);
         setLoadings(false);
-
-        window.location.reload();
+        message.success(`เพิ่มข้อมูลสำเร็จ`);
+      // window.location.reload();
       });
     } else {
       setLoadings(false);
@@ -53,6 +53,7 @@ const StockAddText = () => {
   const [notre, setNotre] = useState(true);
   const [loadings, setLoadings] = useState(false);
   const [subCategory, setSubCategory] = useState([]);
+  const [mat, setMat] = useState();
 
   const getCategory = () => {
     axios.get(API_URL + "/api/Category/GetCategory").then((res) => {
@@ -74,6 +75,12 @@ const StockAddText = () => {
       setSubCategory(res.data.data);
     });
   };
+  const getMat = () => {
+    axios.get(API_URL + `/api/Material/GetMaterial`).then((res) => {
+      console.log("jaa", res.data.data);
+      setMat(res.data.data);
+    });
+  };
   const getStore = () => {
     axios
       .get(API_URL + "/api/Store/GetStoreByUser/" + authUser.user.id)
@@ -83,6 +90,7 @@ const StockAddText = () => {
       });
   };
   useEffect(() => {
+    getMat();
     getStore();
     getCategory();
     getSubCategory();
@@ -93,7 +101,7 @@ const StockAddText = () => {
   const inputValue = (name) => (event) => {
     axios
       .get(
-        `https://localhost:7106/api/Material/GetSingleMaterialbyCode/${event.target.value}`
+        API_URL + `/api/Material/GetSingleMaterialbyCode/${event}`
       )
       .then((res) => {
         if (res.data.data === null) {
@@ -135,26 +143,20 @@ const StockAddText = () => {
           },
         ]}
       >
-        <Input value={code} onChange={inputValue("code")} />
-      </Form.Item>
-      <Form.Item
-        name="category"
-        label="หมวดหมู่อะไหล่"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
         <Select
-          placeholder="โปรดเลือกหมวดหมู่อะไหล่"
+          placeholder="เลือกอะไหล่"
           showSearch
           optionFilterProp="children"
           onSearch={onSearch}
+          onChange={inputValue("code")}
         >
-          {category.sort().map((item) => (
-            <Select.Option value={item.id}>{item.name}</Select.Option>
-          ))}
+          {mat
+            ? mat.sort().map((item) => (
+                <Select.Option key={item.id} value={item.code}>
+                  {item.code + " " + item.name}
+                </Select.Option>
+              ))
+            : null}
         </Select>
       </Form.Item>
 

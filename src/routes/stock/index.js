@@ -15,7 +15,10 @@ import {
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { API_URL, authUser } from "../../constanst";
-import { DeleteOutlined, FormOutlined, PlusOutlined } from "@ant-design/icons";
+import { CloudDownloadOutlined, DeleteOutlined, FormOutlined, PlusOutlined } from "@ant-design/icons";
+
+import { Excel } from "antd-table-saveas-excel";
+
 
 import StockEdit from "./Edit";
 import StockAdd from "./add";
@@ -89,7 +92,7 @@ const Stock = () => {
       dataIndex: "storeName",
       key: "storeName",
       filters: arrt1,
-      filteredValue: filteredInfo.storeName || null,
+      filteredValue: filteredInfo.storeName||null,
       onFilter: (value, record) => record.storeName.includes(value),
       sorter: (a, b) => a.storeName.length - b.storeName.length,
       sortOrder: sortedInfo.columnKey === "storeName" ? sortedInfo.order : null,
@@ -170,6 +173,50 @@ const Stock = () => {
       ),
     },
   ];
+  const columnsExport = [
+    {
+      title: "หมายเลขอะไหล่",
+      dataIndex: "code",
+      key: "code",
+      width: 200,
+    },
+    {
+      title: "ชื่ออะไหล่",
+      dataIndex: "name",
+      key: "name",
+      width: 150,
+    },
+    {
+      title: "Store",
+      dataIndex: "storeName",
+      key: "storeName",
+    },
+    {
+      title: "รายละเอียด",
+      dataIndex: "detail",
+      key: "detail",
+    },
+    {
+      title: "Parts",
+      dataIndex: "parts",
+      key: "parts",
+    },
+    {
+      title: "จำนวน",
+      dataIndex: "count",
+      key: "count",
+    },
+    {
+      title: "หน่วยนับ",
+      dataIndex: "unit",
+      key: "unit",
+    },
+    {
+      title: "ผู้อัปเดต",
+      dataIndex: "createBy",
+      key: "createBy",
+    },
+  ];
   const getDataTable = () => {
     setLoading(true);
     axios
@@ -193,6 +240,7 @@ const Stock = () => {
     }, 3000);
   };
   const handleCancel = () => {
+    getDataTable();
     setOpen(false);
   };
 
@@ -206,6 +254,7 @@ const Stock = () => {
     }, 3000);
   };
   const handleCancel1 = () => {
+    getDataTable();
     setOpen1(false);
   };
 
@@ -219,6 +268,7 @@ const Stock = () => {
     }, 3000);
   };
   const handleCancel2 = () => {
+    getDataTable();
     setOpen2(false);
   };
   useEffect(() => {
@@ -227,6 +277,17 @@ const Stock = () => {
     }
     getDataTable();
   }, []);
+
+  const exportToExcel = () => {
+    const excel = new Excel();
+    excel
+      .addSheet(`รายการอะไหล่`)
+      .addColumns(columnsExport)
+      .addDataSource(data, {
+        str2Percent: true
+      })
+      .saveAs(`รายการอะไหล่.xlsx`);
+  };
   return (
     <>
       <Row>
@@ -252,6 +313,14 @@ const Stock = () => {
                   icon={<PlusOutlined />}
                 >
                   <span>เพิ่มอะไหล่จากแหล่งอื่น</span>
+                </Button>
+                <Button
+                  type="primary"
+                  style={{ marginTop: "10px" }}
+                  onClick={exportToExcel}
+                  icon={<CloudDownloadOutlined />}
+                >
+                  <span>Export</span>
                 </Button>
               </div>
             }

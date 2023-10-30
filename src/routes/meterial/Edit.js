@@ -27,7 +27,7 @@ const MaterialEdit = (data) => {
     };
     axios.post(API_URL + "/api/Material/Update", context).then((res) => {
       console.log(res);
-      window.location.reload();
+      // window.location.reload();
       message.success(`แก้ไขข้อมุล ${values.name} สำเร็จแล้ว`);
     });
   };

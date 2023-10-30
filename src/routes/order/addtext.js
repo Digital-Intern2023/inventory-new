@@ -23,7 +23,8 @@ const OrderAddText = () => {
         console.log(res);
         if (res.data.data != null) {
           setLoadings(false);
-          window.location.reload();
+        message.success(`เพิ่มข้อมูลสำเร็จ`);
+        // window.location.reload();
         } else {
           setLoadings(false);
           message.error("จำนวนอะไหล่มีไม่พอให้ใช้บริการ");
@@ -49,12 +50,21 @@ const OrderAddText = () => {
     code: "",
     storeId: "",
   });
+  const [mat, setMat] = useState();
   function getPlant() {
     axios.get(API_URL + "/api/Structure/GetPlant").then((res) => {
       console.log(res.data.data);
       setPlant(res.data.data);
     });
   }
+  const getMat = () => {
+    axios
+      .get(API_URL + "/api/Stock/GetStockDistinct/" + authUser.user.id)
+      .then((res) => {
+        console.log("jaa", res.data.data);
+        setMat(res.data.data);
+      });
+  };
   function getStore() {
     axios
       .get(API_URL + "/api/Store/GetStoreByUser/" + authUser.user.id)
@@ -67,6 +77,7 @@ const OrderAddText = () => {
     console.log("search:", value);
   };
   useEffect(() => {
+    getMat();
     getPlant();
     getStore();
   }, []);
@@ -75,7 +86,7 @@ const OrderAddText = () => {
     console.log(event);
     if (name == "code") {
       // message.warning("กรุณาเลือก Store ที่ต้องการเบิก");
-      setCondition({ ...condition, ["code"]: event.target.value });
+      setCondition({ ...condition, ["code"]: event });
     }
     if (name == "storeId") {
       setCondition({ ...condition, ["storeId"]: event });
@@ -84,7 +95,7 @@ const OrderAddText = () => {
     if (condition.code != "") {
       axios
         .get(
-          `https://localhost:7106/api/Stock/GetSinglebyCodeAndStoreId/${
+          API_URL + `/api/Stock/GetSinglebyCodeAndStoreId/${
             condition.code
           }/${event.toString()}/${authUser.user.id}`
         )
@@ -139,7 +150,21 @@ const OrderAddText = () => {
             },
           ]}
         >
-          <Input value={code} onChange={inputValue("code")} />
+          <Select
+            placeholder="เลือกอะไหล่"
+            showSearch
+            optionFilterProp="children"
+            onSearch={onSearch}
+            onChange={inputValue("code")}
+          >
+            {mat
+              ? mat.sort().map((item) => (
+                  <Select.Option key={item.id} value={item.code}>
+                    {item.code + " " + item.name}
+                  </Select.Option>
+                ))
+              : null}
+          </Select>
         </Form.Item>
         <Form.Item
           name="storeId"

@@ -20,7 +20,7 @@ import OrderEdit from "./Edit";
 
 import OrderAddText from "./addtext";
 
-const Order = () => {
+const Order = (props) => {
   const [data, setData] = useState([]);
   const [arrt1, setArrt1] = useState("");
   const [open, setOpen] = useState(false);
@@ -61,10 +61,6 @@ const Order = () => {
     setOpen(false);
   };
 
-  // const showModal1 = (record) => {
-  //   setDataModal(record);
-  //   setOpen1(true);
-  // };
   const handleOk1 = () => {
     setLoading1(true);
     setTimeout(() => {
@@ -175,7 +171,7 @@ const Order = () => {
       dataIndex: "storeName",
       key: "storeName",
       filters: arrt1,
-      filteredValue: filteredInfo.storeName || null,
+      filteredValue: filteredInfo.storeName || [props.match.params.store],
       onFilter: (value, record) => record.storeName.includes(value),
       sorter: (a, b) => a.storeName.length - b.storeName.length,
       sortOrder: sortedInfo.columnKey === "storeName" ? sortedInfo.order : null,

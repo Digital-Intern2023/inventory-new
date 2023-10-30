@@ -35,13 +35,18 @@ const Company = ({ pie, bar }) => {
     scrollbar: {
       type: "horizontal",
     },
+    onReady: (plot) => {
+      plot.on('element:click', (...args) => {
+        window.location.assign(`/order/${args[0].data.data.name}`)
+      });
+    },
   };
 
   return (
     <>
       <Row>
         {/* {JSON.stringify(data)} */}
-        <Col lg={8} md={8}>
+        <Col  lg={8} xl={8} md={8} sm={24} xs={24}>
           <Link to={"/order"}>
             <Widget
               title={
@@ -83,8 +88,18 @@ const Company = ({ pie, bar }) => {
                     </Pie>
                   </PieChart>
                 </ResponsiveContainer>
+                <h5>กิจการ / จำนวน</h5>
+
                 <table width={"100%"}>
                   <tbody>
+                  <tr>
+                      <td>
+                        สี
+                      </td>
+                      <td>กิจการ</td>
+                      <td>รายการ</td>
+                      <td>ชิ้น</td>
+                    </tr>
                     {pie
                       ? datapie.map((item) => (
                           <tr>
@@ -100,6 +115,7 @@ const Company = ({ pie, bar }) => {
                             </td>
                             <td>{item.name}</td>
                             <td>{item.value}</td>
+                            <td>{item.unit}</td>
                           </tr>
                         ))
                       : console.log("Loading")}
@@ -109,7 +125,7 @@ const Company = ({ pie, bar }) => {
             </Widget>
           </Link>
         </Col>
-        <Col lg={16} md={16}>
+        <Col  lg={16} xl={16} md={16} sm={24} xs={24}>
           {/* <ResponsiveContainer width="100%" height={300}>
             <BarChart
               data={datachart}
@@ -123,6 +139,7 @@ const Company = ({ pie, bar }) => {
               <Bar dataKey="count" stackId="a" fill="#003366" />
             </BarChart>
           </ResponsiveContainer> */}
+          <h5 style={{marginBottom:"30px"}}>( Store / จำนวนชิ้น) </h5>
           <Column {...config} />
         </Col>
       </Row>

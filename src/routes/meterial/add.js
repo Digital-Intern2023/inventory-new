@@ -32,7 +32,7 @@ const MaterialAdd = () => {
       axios.post(API_URL + "/api/Material/Create", context).then((res) => {
         console.log(res);
         message.success("เพิ่มข้อมูลอะไหล่กลางสำเร็จแล้ว");
-        window.location.reload();
+        // window.location.reload();
       });
     } else {
       message.error("ข้อมูลซ้ำกับในระบบ");
@@ -53,7 +53,7 @@ const MaterialAdd = () => {
     console.log("bar", params);
     axios
       .get(
-        `https://localhost:7106/api/Material/GetSingleMaterialbyCode/${params}`
+        API_URL + `/api/Material/GetSingleMaterialbyCode/${params}`
       )
       .then((res) => {
         if (res.data.data === null) {
