@@ -73,6 +73,12 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               </NavLink>
             </Menu.Item>
 
+            <Menu.Item key="Now">
+              <NavLink to="/Now">
+                <i className="icon icon-widgets" />
+                อะไหล่ ณ ปัจจุบัน
+              </NavLink>
+            </Menu.Item>
             <Menu.Item key="Stock">
               <NavLink to="/stock" activeStyle={{ color: "orange" }}>
                 <i className="icon icon-widgets" />
@@ -106,10 +112,18 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               <Menu.Item key="catalog">
                 <NavLink to="/catalog" activeStyle={{ color: "orange" }}>
                   <i className="icon icon-widgets" />
-                  รายกาารเครื่องจักร
+                  รายการเครื่องจักร
                 </NavLink>
               </Menu.Item>
             </SubMenu>
+
+
+            <Menu.Item key="log">
+              <NavLink to="/log" activeStyle={{ color: "orange" }}>
+                <i className="icon icon-widgets" />
+                ประวัติการทำรายการ
+              </NavLink>
+            </Menu.Item>
 
             {authUser.user.id == 3 ? (
               <>

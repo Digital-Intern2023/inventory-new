@@ -29,11 +29,16 @@ const StockOverView = ({ pie, bar }) => {
     yField: "count",
     xAxis: {
       label: {
-        autoRotate: false,
+        autoRotate: true,
       },
     },
     scrollbar: {
       type: "horizontal",
+    },
+    onReady: (plot) => {
+      plot.on('element:click', (...args) => {
+        window.location.assign(`/stock/${args[0].data.data.name}`)
+      });
     },
   };
 
@@ -41,7 +46,7 @@ const StockOverView = ({ pie, bar }) => {
     <>
       <Row>
         {/* {JSON.stringify(data)} */}
-        <Col lg={8} md={8}>
+        <Col lg={8} xl={8} md={8} sm={24} xs={24}>
           <Link to={"/Stock"}>
             <Widget
               title={
@@ -74,34 +79,44 @@ const StockOverView = ({ pie, bar }) => {
                     >
                       {pie
                         ? datapie.map((entry, index) => (
-                            <Cell
-                              key={index}
-                              fill={COLORS[index % COLORS.length]}
-                            />
-                          ))
+                          <Cell
+                            key={index}
+                            fill={COLORS[index % COLORS.length]}
+                          />
+                        ))
                         : console.log("Loading")}
                     </Pie>
                   </PieChart>
                 </ResponsiveContainer>
+                <h5>กิจการ / จำนวน</h5>
                 <table width={"100%"}>
                   <tbody>
+                    <tr>
+                      <td>
+                        สี
+                      </td>
+                      <td>กิจการ</td>
+                      <td>รายการ</td>
+                      <td>ชิ้น</td>
+                    </tr>
                     {pie
                       ? datapie.map((item) => (
-                          <tr>
-                            <td>
-                              <span
-                                style={{
-                                  border: "solid 1px item.color",
-                                  paddingLeft: "5px",
-                                  paddingRight: "5px",
-                                  backgroundColor: item.color,
-                                }}
-                              ></span>
-                            </td>
-                            <td>{item.name}</td>
-                            <td>{item.value}</td>
-                          </tr>
-                        ))
+                        <tr>
+                          <td>
+                            <span
+                              style={{
+                                border: "solid 1px item.color",
+                                paddingLeft: "5px",
+                                paddingRight: "5px",
+                                backgroundColor: item.color,
+                              }}
+                            ></span>
+                          </td>
+                          <td>{item.name}</td>
+                          <td>{item.value}</td>
+                          <td>{item.unit}</td>
+                        </tr>
+                      ))
                       : console.log("Loading")}
                   </tbody>
                 </table>
@@ -109,7 +124,7 @@ const StockOverView = ({ pie, bar }) => {
             </Widget>
           </Link>
         </Col>
-        <Col lg={16} md={16}>
+        <Col lg={16} xl={16} md={16} sm={24} xs={24}>
           {/* <ResponsiveContainer width="100%" height={300}>
             <BarChart
               data={datachart}
@@ -123,6 +138,7 @@ const StockOverView = ({ pie, bar }) => {
               <Bar dataKey="count" stackId="a" fill="#003366" />
             </BarChart>
           </ResponsiveContainer> */}
+          <h5 style={{ marginBottom: "30px" }}>( Store / จำนวนชิ้น) </h5>
           <Column {...config} />
         </Col>
       </Row>

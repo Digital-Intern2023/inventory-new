@@ -29,7 +29,7 @@ import Addottext from "./addottext";
 import SignIn from "../../containers/SignIn";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-const Stock = () => {
+const Stock = (props) => {
   const [data, setData] = useState([]);
   const [arrt1, setArrt1] = useState("");
   const [open, setOpen] = useState(false);
@@ -92,7 +92,7 @@ const Stock = () => {
       dataIndex: "storeName",
       key: "storeName",
       filters: arrt1,
-      filteredValue: filteredInfo.storeName||null,
+      filteredValue: filteredInfo.storeName||[props.match.params.store],
       onFilter: (value, record) => record.storeName.includes(value),
       sorter: (a, b) => a.storeName.length - b.storeName.length,
       sortOrder: sortedInfo.columnKey === "storeName" ? sortedInfo.order : null,
@@ -275,6 +275,7 @@ const Stock = () => {
     if (!authUser) {
       return <SignIn />;
     }
+    // alert("SSS")
     getDataTable();
   }, []);
 
@@ -291,7 +292,6 @@ const Stock = () => {
   return (
     <>
       <Row>
-        {/* {JSON.stringify(data)} */}
         <Col xl={24} lg={24} md={24} sm={24} xs={24}>
           <Card
             style={{ verticalAlign: "middle" }}

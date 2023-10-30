@@ -9,6 +9,8 @@ import dayjs from "dayjs";
 import Company from "./company";
 import axios from "axios";
 import StockOverView from "./stock";
+import { start } from "nprogress";
+import moment from "moment";
 const { RangePicker } = DatePicker;
 
 const Dashboard = () => {
@@ -18,13 +20,11 @@ const Dashboard = () => {
   const [bardata, setBardata] = useState("");
   const [overview, setOverview] = useState("");
 
-  // const onChange = (date) => {
-  //   if (date) {
-  //     console.log("Date: ", date);
-  //   } else {
-  //     console.log("Clear");
-  //   }
-  // };
+
+  var date = new Date();
+  var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+  var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  
   const onRangeChange = (dates, dateStrings) => {
     if (dates) {
       console.log("From: ", dates[0], ", to: ", dates[1]);
@@ -46,14 +46,14 @@ const Dashboard = () => {
     {
       key: "1",
       label: `ข้อมูลการคลังอะไหล่`,
-      children: <StockOverView pie={piestockdata} bar={barstockdata}/>,
+      children: <StockOverView pie={piestockdata} bar={barstockdata} />,
     },
   ];
   const items1 = [
     {
       key: "1",
       label: `ข้อมูลการเบิกอะไหล่`,
-      children: <Company pie={piedata} bar={bardata}/>,
+      children: <Company pie={piedata} bar={bardata} />,
     },
   ];
   const rangePresets = [
@@ -79,12 +79,12 @@ const Dashboard = () => {
   const getDataStockPieChartByDate = (start, end) => {
     axios.get(API_URL + "/api/Home/GetPieStock/" + start + "/" + end).then((res) => {
       setPieStockdata([
-        { color: "#5797fc", name: "CPAC Metro", value: res.data.data1 },
-        { color: "#FA8C16", name: "RMC - South Chain", value: res.data.data2 },
-        { color: "#f5222d", name: "CPAC East", value: res.data.data3 },
-        { color: "#F1C40F ", name: "CPAC West", value: res.data.data4 },
-        { color: "#117A65", name: "CPAC North", value: res.data.data5 },
-        { color: "#707B7C ", name: "CPAC Northeast", value: res.data.data6 },
+        { color: "#5797fc", name: "CPAC Metro", value: res.data.data1 , unit:res.data.unit1 },
+        { color: "#FA8C16", name: "RMC - South Chain", value: res.data.data2 , unit:res.data.unit2 },
+        { color: "#f5222d", name: "CPAC East", value: res.data.data3 , unit:res.data.unit3 },
+        { color: "#F1C40F ", name: "CPAC West", value: res.data.data4 , unit:res.data.unit4 },
+        { color: "#117A65", name: "CPAC North", value: res.data.data5 , unit:res.data.unit5 },
+        { color: "#707B7C ", name: "CPAC Northeast", value: res.data.data6 , unit:res.data.unit6 },
       ]);
       console.log(res);
     });
@@ -104,13 +104,13 @@ const Dashboard = () => {
   };
   const getBarStockChartByDate = (start, end) => {
     axios
-      .get(API_URL + "/api/Home/GetChartStock/"+authUser.user.id+"/" + start + "/" + end)
+      .get(API_URL + "/api/Home/GetChartStock/" + authUser.user.id + "/" + start + "/" + end)
       .then((res) => {
         setBarStockdata(res.data.data);
       });
   };
   const getBarStockChart = () => {
-    axios.get(API_URL + "/api/Home/GetChartStock/"+authUser.user.id).then((res) => {
+    axios.get(API_URL + "/api/Home/GetChartStock/" + authUser.user.id).then((res) => {
       setBarStockdata(res.data.data);
     });
   };
@@ -121,12 +121,12 @@ const Dashboard = () => {
   const getDataPieChartByDate = (start, end) => {
     axios.get(API_URL + "/api/Home/GetPie/" + start + "/" + end).then((res) => {
       setPiedata([
-        { color: "#5797fc", name: "CPAC Metro", value: res.data.data1 },
-        { color: "#FA8C16", name: "RMC - South Chain", value: res.data.data2 },
-        { color: "#f5222d", name: "CPAC East", value: res.data.data3 },
-        { color: "#F1C40F ", name: "CPAC West", value: res.data.data4 },
-        { color: "#117A65", name: "CPAC North", value: res.data.data5 },
-        { color: "#707B7C ", name: "CPAC Northeast", value: res.data.data6 },
+        { color: "#5797fc", name: "CPAC Metro", value: res.data.data1 , unit:res.data.unit1 },
+        { color: "#FA8C16", name: "RMC - South Chain", value: res.data.data2 , unit:res.data.unit2 },
+        { color: "#f5222d", name: "CPAC East", value: res.data.data3 , unit:res.data.unit3 },
+        { color: "#F1C40F ", name: "CPAC West", value: res.data.data4 , unit:res.data.unit4 },
+        { color: "#117A65", name: "CPAC North", value: res.data.data5 , unit:res.data.unit5 },
+        { color: "#707B7C ", name: "CPAC Northeast", value: res.data.data6 , unit:res.data.unit6 },
       ]);
       console.log(res);
     });
@@ -136,23 +136,23 @@ const Dashboard = () => {
     axios.get(API_URL + "/api/Home/GetPie").then((res) => {
       setPiedata([
         { color: "#5797fc", name: "CPAC Metro", value: res.data.data1 },
-        { color: "#FA8C16", name: "RMC - South Chain", value: res.data.data2 },
         { color: "#f5222d", name: "CPAC East", value: res.data.data3 },
         { color: "#F1C40F ", name: "CPAC West", value: res.data.data4 },
         { color: "#117A65", name: "CPAC North", value: res.data.data5 },
         { color: "#707B7C ", name: "CPAC Northeast", value: res.data.data6 },
+        { color: "#FA8C16", name: "RMC - South Chain", value: res.data.data2 },
       ]);
     });
   };
   const getBarChartByDate = (start, end) => {
     axios
-      .get(API_URL + "/api/Home/GetChart/" + start + "/" + end)
+      .get(API_URL + "/api/Home/GetChart/"+authUser.user.id+"/" + start + "/" + end)
       .then((res) => {
         setBardata(res.data.data);
       });
   };
   const getBarChart = () => {
-    axios.get(API_URL + "/api/Home/GetChart/"+authUser.user.id).then((res) => {
+    axios.get(API_URL + "/api/Home/GetChart/" + authUser.user.id).then((res) => {
       setBardata(res.data.data);
       console.log("barres", bardata);
     });
@@ -161,7 +161,7 @@ const Dashboard = () => {
   ///// end
   const getOverviewByDate = (start, end) => {
     axios
-      .get(API_URL + "/api/Home/GetOverview/"+authUser.user.id +"/" + start + "/" + end)
+      .get(API_URL + "/api/Home/GetOverview/" + authUser.user.id + "/" + start + "/" + end)
       .then((res) => {
         setOverview(res.data);
         console.log(res);
@@ -177,19 +177,22 @@ const Dashboard = () => {
     if (!authUser) {
       return <SignIn />;
     }
-    getDataStockPieChart();
-    getBarStockChart();
-    getDataPieChart();
-    getBarChart();
-    getOverview();
+    var fdate = moment(firstDay).format("YYYY-MM-DD");
+    var ldate = moment(lastDay).format("YYYY-MM-DD");
+    getDataStockPieChartByDate(fdate,ldate);
+    getBarStockChartByDate(fdate,ldate);
+    getDataPieChartByDate(fdate,ldate);
+    getBarChartByDate(fdate,ldate);
+    getOverviewByDate(fdate,ldate);
+
   }, []);
   return (
     <>
       <Widget
-        extra={<RangePicker presets={rangePresets} onChange={onRangeChange} />}
+        extra={<RangePicker presets={rangePresets} onChange={onRangeChange} defaultValue={[dayjs(firstDay, "DD/MM/YYYY"), dayjs(lastDay, "DD/MM/YYYY")]}/>}
         title="กรองข้อมูลตามระยะเวลา"
       ></Widget>
-      <Row>
+      {/* <Row>
         <Col xl={8} lg={12} md={24} sm={24} xs={24}>
           <ChartCard
             prize={overview.data1}
@@ -218,8 +221,37 @@ const Dashboard = () => {
         </Col>
       </Row>
 
+      <Row>
+        <Col xl={8} lg={12} md={24} sm={24} xs={24}>
+          <ChartCard
+            prize={overview.count1}
+            title="จำนวนนำเข้า"
+            icon="bitcoin"
+            styleName="up"
+            desc="Bitcoin Price"
+          />
+        </Col>
+        <Col xl={8} lg={12} md={24} sm={24} xs={24}>
+          <ChartCard
+            prize={overview.count2}
+            title="จำนวนเบิกออก"
+            icon="etherium"
+            desc="Etherium Price"
+          />
+        </Col>
+        <Col xl={8} lg={12} md={24} sm={24} xs={24}>
+          <ChartCard
+            prize={overview.count3}
+            title="รวมคงเหลือ"
+            icon="ripple"
+            styleName="down"
+            desc="Ripple Price"
+          />
+        </Col>
+      </Row> */}
+
       <Widget>
-        <Tabs defaultActiveKey="1" items={items} onChange={onChangeTab} />
+        <Tabs defaultActiveKey="1" items={items} onChange={onChangeTab} start={firstDay} end={lastDay} />
       </Widget>
       <Widget>
         <Tabs defaultActiveKey="1" items={items1} onChange={onChangeTab} />

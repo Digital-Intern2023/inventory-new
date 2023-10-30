@@ -37,6 +37,18 @@ const App = ({ match }) => (
         component={asyncComponent(() => import("./meterial/index"))}
       />
       <Route
+        path={`${match.url}Now`}
+        exact
+        component={asyncComponent(() => import("./stock/index"))}
+      />
+
+      <Route
+        path={`${match.url}stock/:store`}
+        exact
+        component={asyncComponent(() => import("./stock/indexByStore"))}
+      />
+
+      <Route
         path={`${match.url}stock`}
         exact
         component={asyncComponent(() => import("./stock/index"))}
@@ -47,6 +59,15 @@ const App = ({ match }) => (
         exact
         component={asyncComponent(() => import("./stock/detail"))}
       />
+
+
+      <Route
+        path={`${match.url}order/:store`}
+        exact
+        component={asyncComponent(() => import("./stock/indexByStore"))}
+      />
+
+
       <Route
         path={`${match.url}order`}
         exact
@@ -79,6 +100,11 @@ const App = ({ match }) => (
         path={`${match.url}overview`}
         exact
         component={asyncComponent(() => import("./overview/index"))}
+      />
+      <Route
+        path={`${match.url}log`}
+        exact
+        component={asyncComponent(() => import("./log/index"))}
       />
     </Switch>
   </div>
